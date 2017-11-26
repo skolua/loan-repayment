@@ -16,7 +16,7 @@ iup.SetGlobal("TXTFGCOLOR", "#000000")
 
 -- ELEMENTS ===================================================================
 local s = "50x"
-local p = "10x0"
+local p = "10x"
 
 local P_Label = iup.label{title="Loan amount ($)", padding=p}
 local P = iup.text{value="500000", size=s, padding=p}
