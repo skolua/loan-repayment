@@ -71,9 +71,8 @@ function I:valuechanged_cb() Calculate() end
 function T:valuechanged_cb() Calculate() end
 
 -- MAIN WINDOW ================================================================
-local WIN = iup.dialog{title="Loan Repayment"}
+local WIN = iup.dialog{title="Loan Repayment", resize="no"}
 WIN:append(iup.vbox{P_box, I_box, T_box, MR_box, alignment="ARIGHT", margin="10x5"})
-WIN.resize = "no"
 
 Calculate()  -- initialise with default values
 WIN:show()
