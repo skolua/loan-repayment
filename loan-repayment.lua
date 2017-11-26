@@ -55,7 +55,7 @@ local function Calculate()
   local P, I, T = tonumber(P.value), tonumber(I.value), tonumber(T.value)
   if P and I and T then
     local M = Repayment(P,I,T)
-    if M:match("nan") or M:match("inf") then	-- test for "nan" / "inf"
+    if M:match("nan") or M:match("inf") then
       Reset("NA")
     else
       Reset(M)
@@ -75,7 +75,7 @@ local WIN = iup.dialog{title="Loan Repayment"}
 WIN:append(iup.vbox{P_box, I_box, T_box, MR_box, alignment="ARIGHT", margin="10x5"})
 WIN.resize = "no"
 
-Calculate()	-- initialise with default values
+Calculate()  -- initialise with default values
 WIN:show()
 
 iup.MainLoop()
