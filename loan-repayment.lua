@@ -35,10 +35,10 @@ I.mask = "(/d+/.?/d*|/./d+)"  -- ufloat
 T.mask = "/d+"                -- uint
 
 -- ELEMENT COMPOSITION ========================================================
-local P_box = iup.hbox{P_Label, P}
-local I_box = iup.hbox{I_Label, I}
-local T_box = iup.hbox{T_Label, T}
-local MR_box = iup.hbox{MR_Label, MR}
+local P_ = iup.hbox{P_Label, P}
+local I_ = iup.hbox{I_Label, I}
+local T_ = iup.hbox{T_Label, T}
+local MR_ = iup.hbox{MR_Label, MR}
 
 -- FUNCTIONS ==================================================================
 local function Repayment(P,I,T)
@@ -47,21 +47,17 @@ local function Repayment(P,I,T)
   return string.format("%.0f", M)
 end
 
-local function Reset(M)
-  MR.value = M
-end
-
 local function Calculate()
   local P, I, T = tonumber(P.value), tonumber(I.value), tonumber(T.value)
   if P and I and T then
     local M = Repayment(P,I,T)
     if M:match("nan") or M:match("inf") then
-      Reset("NA")
+      MR.value = "NA"
     else
-      Reset(M)
+      MR.value = M
     end
   else
-    Reset("NA")
+    MR.value = "NA"
   end
 end
 
@@ -72,7 +68,7 @@ function T:valuechanged_cb() Calculate() end
 
 -- MAIN WINDOW ================================================================
 local WIN = iup.dialog{title="Loan Repayment", resize="no"}
-WIN:append(iup.vbox{P_box, I_box, T_box, MR_box, alignment="aright", margin="10x5"})
+WIN:append(iup.vbox{P_, I_, T_, MR_, alignment="aright", margin="10x5"})
 
 Calculate()  -- initialise with default values
 WIN:show()
