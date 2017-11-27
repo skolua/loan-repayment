@@ -1,10 +1,3 @@
--- PATH & REQUIRE =============================================================
-local LUA_DIR = {[[C:\LuaJIT\lua\?.lua;]], [[C:\LuaJIT\lua\?\?.lua;]]}
-local DLL_DIR = {[[C:\LuaJIT\?.dll;]], [[C:\LuaJIT\?51.dll;]]}
-
-for i = 1,#LUA_DIR do package.path = LUA_DIR[i]..package.path end
-for i = 1,#DLL_DIR do package.cpath = DLL_DIR[i]..package.cpath end
-
 require("iuplua")
 
 -- DEFAULTS ===================================================================
