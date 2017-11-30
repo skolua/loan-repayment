@@ -31,7 +31,7 @@ local MR_ = iup.hbox{MR_Label, MR}
 
 -- FUNCTIONS ==================================================================
 local function Repayment(P,I,T)
-	local i = I/100  -- %
+	local i = I/100
 	local M = (P*i/12)/(1-math.pow((1+(i/12)),(-12*T)))
 	return string.format("%.0f", M)
 end
