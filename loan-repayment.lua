@@ -31,23 +31,23 @@ local MR_ = iup.hbox{MR_Label, MR}
 
 -- FUNCTIONS ==================================================================
 local function Repayment(P,I,T)
-local i = I/100
-local M = (P*i/12)/(1-math.pow((1+(i/12)),(-12*T)))
-return string.format("%.0f", M)
+	local i = I/100
+	local M = (P*i/12)/(1-math.pow((1+(i/12)),(-12*T)))
+	return string.format("%.0f", M)
 end
 
 local function Calculate()
-local P, I, T = tonumber(P.value), tonumber(I.value), tonumber(T.value)
-if P and I and T then
-local M = Repayment(P,I,T)
-if M:match("nan") or M:match("inf") then
-MR.value = "NA"
-else
-MR.value = M
-end
-else
-MR.value = "NA"
-end
+	local P, I, T = tonumber(P.value), tonumber(I.value), tonumber(T.value)
+	if P and I and T then
+		local M = Repayment(P,I,T)
+		if M:match("nan") or M:match("inf") then
+			MR.value = "NA"
+		else
+			MR.value = M
+		end
+	else
+		MR.value = "NA"
+	end
 end
 
 -- CALLBACKS ==================================================================
