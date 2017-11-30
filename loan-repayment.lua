@@ -12,20 +12,16 @@ local s = "50x"
 local p = "10x"
 
 local P_Label = iup.label{title="Loan amount ($)", padding=p}
-local P = iup.text{value="500000", size=s, padding=p}
+local P = iup.text{value="500000", size=s, padding=p, mask=iup.MASK_UINT}
 
 local I_Label = iup.label{title="Interest rate (% p.a.)", padding=p}
-local I = iup.text{value="5.0", size=s, padding=p}
+local I = iup.text{value="5.0", size=s, padding=p, mask=iup.MASK_UFLOAT}
 
 local T_Label = iup.label{title="Term (years)", padding=p}
-local T = iup.text{value="20", size=s, padding=p}
+local T = iup.text{value="20", size=s, padding=p, mask=iup.MASK_UINT}
 
 local MR_Label = iup.label{title="Monthly repayment ($)", padding=p}
 local MR = iup.text{value="NA", readonly="yes", size=s, padding=p}
-
-P.mask = "/d+"                -- uint
-I.mask = "(/d+/.?/d*|/./d+)"  -- ufloat
-T.mask = "/d+"                -- uint
 
 -- ELEMENT COMPOSITION ========================================================
 local P_ = iup.hbox{P_Label, P}
@@ -35,23 +31,23 @@ local MR_ = iup.hbox{MR_Label, MR}
 
 -- FUNCTIONS ==================================================================
 local function Repayment(P,I,T)
-  local i = I/100  -- %
-  local M = (P*i/12)/(1-math.pow((1+(i/12)),(-12*T)))
-  return string.format("%.0f", M)
+	local i = I/100  -- %
+	local M = (P*i/12)/(1-math.pow((1+(i/12)),(-12*T)))
+	return string.format("%.0f", M)
 end
 
 local function Calculate()
-  local P, I, T = tonumber(P.value), tonumber(I.value), tonumber(T.value)
-  if P and I and T then
-    local M = Repayment(P,I,T)
-    if M:match("nan") or M:match("inf") then
-      MR.value = "NA"
-    else
-      MR.value = M
-    end
-  else
-    MR.value = "NA"
-  end
+	local P, I, T = tonumber(P.value), tonumber(I.value), tonumber(T.value)
+	if P and I and T then
+		local M = Repayment(P,I,T)
+		if M:match("nan") or M:match("inf") then
+			MR.value = "NA"
+		else
+			MR.value = M
+		end
+	else
+		MR.value = "NA"
+	end
 end
 
 -- CALLBACKS ==================================================================
